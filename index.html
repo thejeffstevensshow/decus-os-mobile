@@ -1,136 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decus OS</title>
 
-<title>Decus OS</title>
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/world.css" />
+  <link rel="stylesheet" href="styles/themes.css" />
 
-<!-- CORE STYLES -->
-<link rel="stylesheet" href="styles/base.css" />
-<link rel="stylesheet" href="styles/layout.css" />
-<link rel="stylesheet" href="styles/components.css" />
-<link rel="stylesheet" href="styles/world.css" />
-<link rel="stylesheet" href="styles/themes.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #000;
+      color: white;
+      overflow: hidden;
+    }
 
-<style>
-/* TEMP BASE (will be moved later) */
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background: #000;
-  color: white;
-  overflow: hidden;
-}
+    #app {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
 
-/* APP ROOT */
-#app {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
+    .bg-layer {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 28%, rgba(10,18,14,0.10) 100%),
+        url("assets/images/branches-world.png") center center / cover no-repeat;
+      z-index: 0;
+    }
 
-/* BACKGROUND LAYER */
-.bg-layer {
-  position: absolute;
-  inset: 0;
-  background: url('assets/bg.jpg') center/cover no-repeat;
-  z-index: 0;
-}
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: none;
+      z-index: 2;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-/* SCREEN SYSTEM */
-.screen {
-  position: absolute;
-  inset: 0;
-  display: none;
-  z-index: 2;
-}
+    .screen.active {
+      display: block;
+    }
 
-.screen.active {
-  display: block;
-}
+    .screen h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
 
-/* TEST CONTENT */
-.screen h1 {
-  margin: 20px;
-  font-size: 28px;
-}
+    .hero-card {
+      margin-top: 24px;
+      width: min(420px, calc(100% - 24px));
+      border-radius: 28px;
+      padding: 20px;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.28);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.16);
+    }
 
-/* NAV BAR */
-.nav-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.15);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 5;
-}
+    .hero-card h2 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 0.95;
+      color: #18313a;
+    }
 
-.nav-btn {
-  color: white;
-  font-size: 12px;
-  text-align: center;
-  cursor: pointer;
-}
-</style>
+    .hero-card p {
+      margin: 0;
+      color: #334e57;
+      font-weight: 600;
+      line-height: 1.45;
+    }
 
+    .nav-bar {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      height: 86px;
+      border-radius: 28px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.58);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      z-index: 5;
+      box-shadow: 0 18px 40px rgba(20, 50, 32, 0.14);
+      padding: 0 8px;
+    }
+
+    .nav-btn {
+      color: #546866;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-align: center;
+      cursor: pointer;
+      padding: 12px 6px;
+      border-radius: 18px;
+      user-select: none;
+    }
+
+    .nav-btn.active {
+      background: rgba(255,255,255,0.62);
+      color: #27464d;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.42);
+    }
+
+    .nav-btn .icon {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+  </style>
 </head>
-
 <body>
+  <div id="app">
+    <div class="bg-layer"></div>
 
-<div id="app">
+    <div class="screen active" id="home">
+      <h1>Home</h1>
+      <div class="hero-card">
+        <h2>Morning<br>Momentum</h2>
+        <p>Wake, move, breathe, pray, and begin the day with visible energy so the next mission feels natural to enter.</p>
+      </div>
+    </div>
 
-  <!-- BACKGROUND -->
-  <div class="bg-layer"></div>
+    <div class="screen" id="missions">
+      <h1>Missions</h1>
+    </div>
 
-  <!-- SCREENS -->
+    <div class="screen" id="branches">
+      <h1>Branches</h1>
+    </div>
 
-  <div class="screen active" id="home">
-    <h1>Home</h1>
+    <div class="screen" id="rewards">
+      <h1>Rewards</h1>
+    </div>
+
+    <div class="screen" id="system">
+      <h1>System</h1>
+    </div>
+
+    <div class="nav-bar">
+      <div class="nav-btn active" data-screen="home">
+        <span class="icon">⌂</span>
+        HOME
+      </div>
+      <div class="nav-btn" data-screen="missions">
+        <span class="icon">◎</span>
+        MISSIONS
+      </div>
+      <div class="nav-btn" data-screen="branches">
+        <span class="icon">◈</span>
+        BRANCHES
+      </div>
+      <div class="nav-btn" data-screen="rewards">
+        <span class="icon">✦</span>
+        REWARDS
+      </div>
+      <div class="nav-btn" data-screen="system">
+        <span class="icon">☰</span>
+        SYSTEM
+      </div>
+    </div>
   </div>
 
-  <div class="screen" id="missions">
-    <h1>Missions</h1>
-  </div>
+  <script src="scripts/app.js"></script>
+  <script>
+    const navButtons = document.querySelectorAll(".nav-btn");
+    const screens = document.querySelectorAll(".screen");
 
-  <div class="screen" id="branches">
-    <h1>Branches (World Layer Coming)</h1>
-  </div>
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.screen;
 
-  <div class="screen" id="rewards">
-    <h1>Rewards</h1>
-  </div>
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
 
-  <div class="screen" id="system">
-    <h1>System</h1>
-  </div>
+        screens.forEach((screen) => {
+          screen.classList.remove("active");
+        });
 
-  <!-- NAV BAR -->
-  <div class="nav-bar">
-    <div class="nav-btn" onclick="switchScreen('home')">HOME</div>
-    <div class="nav-btn" onclick="switchScreen('missions')">MISSIONS</div>
-    <div class="nav-btn" onclick="switchScreen('branches')">BRANCHES</div>
-    <div class="nav-btn" onclick="switchScreen('rewards')">REWARDS</div>
-    <div class="nav-btn" onclick="switchScreen('system')">SYSTEM</div>
-  </div>
-
-</div>
-
-<!-- SCRIPT -->
-<script src="scripts/app.js"></script>
-
-<script>
-function switchScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-</script>
-
+        document.getElementById(target).classList.add("active");
+      });
+    });
+  </script>
 </body>
 </html>

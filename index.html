@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<title>Decus OS</title>
+
+<!-- CORE STYLES -->
+<link rel="stylesheet" href="styles/base.css" />
+<link rel="stylesheet" href="styles/layout.css" />
+<link rel="stylesheet" href="styles/components.css" />
+<link rel="stylesheet" href="styles/world.css" />
+<link rel="stylesheet" href="styles/themes.css" />
+
+<style>
+/* TEMP BASE (will be moved later) */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #000;
+  color: white;
+  overflow: hidden;
+}
+
+/* APP ROOT */
+#app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* BACKGROUND LAYER */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background: url('assets/bg.jpg') center/cover no-repeat;
+  z-index: 0;
+}
+
+/* SCREEN SYSTEM */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  z-index: 2;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* TEST CONTENT */
+.screen h1 {
+  margin: 20px;
+  font-size: 28px;
+}
+
+/* NAV BAR */
+.nav-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 5;
+}
+
+.nav-btn {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- BACKGROUND -->
+  <div class="bg-layer"></div>
+
+  <!-- SCREENS -->
+
+  <div class="screen active" id="home">
+    <h1>Home</h1>
+  </div>
+
+  <div class="screen" id="missions">
+    <h1>Missions</h1>
+  </div>
+
+  <div class="screen" id="branches">
+    <h1>Branches (World Layer Coming)</h1>
+  </div>
+
+  <div class="screen" id="rewards">
+    <h1>Rewards</h1>
+  </div>
+
+  <div class="screen" id="system">
+    <h1>System</h1>
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="nav-bar">
+    <div class="nav-btn" onclick="switchScreen('home')">HOME</div>
+    <div class="nav-btn" onclick="switchScreen('missions')">MISSIONS</div>
+    <div class="nav-btn" onclick="switchScreen('branches')">BRANCHES</div>
+    <div class="nav-btn" onclick="switchScreen('rewards')">REWARDS</div>
+    <div class="nav-btn" onclick="switchScreen('system')">SYSTEM</div>
+  </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script src="scripts/app.js"></script>
+
+<script>
+function switchScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>

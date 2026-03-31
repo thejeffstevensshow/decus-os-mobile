@@ -128,76 +128,32 @@
   </style>
 </head>
 <body>
-  <div id="app">
-    <div class="bg-layer"></div>
+  <div class="device-frame">
+    <div id="app">
 
-    <div class="screen active" id="home">
-      <h1>Home</h1>
-      <div class="hero-card">
-        <h2>Morning<br>Momentum</h2>
-        <p>Wake, move, breathe, pray, and begin the day with visible energy so the next mission feels natural to enter.</p>
-      </div>
-    </div>
+      <!-- BACKGROUND -->
+      <div class="bg-layer"></div>
 
-    <div class="screen" id="missions">
-      <h1>Missions</h1>
-    </div>
+      <!-- SCREEN: HOME -->
+      <div class="screen active" id="home">
+        <h1>Home</h1>
 
-    <div class="screen" id="branches">
-      <h1>Branches</h1>
-    </div>
+        <div class="card">
+          <h2>Morning Momentum</h2>
+          <p>Wake, move, breathe, pray, and begin the day with visible energy so the next mission feels natural to enter.</p>
+        </div>
+      </div>
 
-    <div class="screen" id="rewards">
-      <h1>Rewards</h1>
-    </div>
+      <!-- NAV BAR -->
+      <div class="nav-bar">
+        <div class="nav-item active">HOME</div>
+        <div class="nav-item">MISSIONS</div>
+        <div class="nav-item">BRANCHES</div>
+        <div class="nav-item">REWARDS</div>
+        <div class="nav-item">SYSTEM</div>
+      </div>
 
-    <div class="screen" id="system">
-      <h1>System</h1>
-    </div>
-
-    <div class="nav-bar">
-      <div class="nav-btn active" data-screen="home">
-        <span class="icon">⌂</span>
-        HOME
-      </div>
-      <div class="nav-btn" data-screen="missions">
-        <span class="icon">◎</span>
-        MISSIONS
-      </div>
-      <div class="nav-btn" data-screen="branches">
-        <span class="icon">◈</span>
-        BRANCHES
-      </div>
-      <div class="nav-btn" data-screen="rewards">
-        <span class="icon">✦</span>
-        REWARDS
-      </div>
-      <div class="nav-btn" data-screen="system">
-        <span class="icon">☰</span>
-        SYSTEM
-      </div>
     </div>
   </div>
-
-  <script src="scripts/app.js"></script>
-  <script>
-    const navButtons = document.querySelectorAll(".nav-btn");
-    const screens = document.querySelectorAll(".screen");
-
-    navButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const target = btn.dataset.screen;
-
-        navButtons.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        screens.forEach((screen) => {
-          screen.classList.remove("active");
-        });
-
-        document.getElementById(target).classList.add("active");
-      });
-    });
-  </script>
 </body>
 </html>
